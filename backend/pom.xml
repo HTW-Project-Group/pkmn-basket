@@ -7,7 +7,7 @@
         <groupId>de.htw-berlin</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>pkmn-product-basket</artifactId>
+    <artifactId>pkmn-basket-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>pkmn-basket-backend</name>
     <description>Backend Module of Basket Domain</description>

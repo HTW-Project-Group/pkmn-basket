@@ -18,10 +18,3 @@ services:
       - '5433:5433'
     expose:
       - '5433'
-
-  rabbitmq:
-      image: rabbitmq:latest
-      container_name: rabbitmq
-      ports:
-        - "5673:5673"
-        - "15673:15673"
