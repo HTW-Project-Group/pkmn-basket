@@ -179,7 +179,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <url>jdbc:postgresql://localhost:5432/shop_db</url>
+                    <url>jdbc:postgresql://localhost:5433/basket_db</url>
                     <user>admin</user>
                     <password>AWTAP0NOm0v6KNACjIf5E7UK</password>
                     <cleanDisabled>false</cleanDisabled>
