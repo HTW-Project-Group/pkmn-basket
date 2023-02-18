@@ -21,11 +21,11 @@ public class BasketItem implements Serializable {
   @Column(name = "id", nullable = false, updatable = false)
   UUID id;
 
-  @Column(name = "product_id", unique = true, nullable = false, updatable = false)
-  String productId;
-
   @Column(name = "user_id", unique = true, nullable = false, updatable = false)
   UUID userId;
+
+  @Column(name = "pokemon_id", unique = true, nullable = false, updatable = false)
+  String pokemonId;
 
   @Column(name = "name")
   String name;

@@ -2,17 +2,19 @@ package de.htwberlin.core.domain.service;
 
 import de.htwberlin.core.domain.model.Basket;
 import de.htwberlin.core.domain.model.BasketItem;
+
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IBasketService {
 
-  BasketItem findBasketItemById(UUID id);
+  Optional<BasketItem> findBasketItemById(UUID id);
 
   Basket findBasketByUserId(UUID userId);
 
-  void addItemToBasketWithUser(BasketItem item, UUID userId);
+  void addItemToBasket(BasketItem item);
 
-  void updateItemFromBasketWithUser(BasketItem item, UUID userId);
+  void updateBasketItem(BasketItem item);
 
-  void deleteItemFromBasketWithUser(UUID itemId, UUID userId);
+  void deleteItemFromBasket(UUID itemId);
 }

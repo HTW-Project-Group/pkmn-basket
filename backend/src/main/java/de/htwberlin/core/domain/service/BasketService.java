@@ -3,6 +3,8 @@ package de.htwberlin.core.domain.service;
 import de.htwberlin.core.domain.model.Basket;
 import de.htwberlin.core.domain.model.BasketItem;
 import de.htwberlin.core.domain.repository.IBasketRepository;
+
+import java.util.Optional;
 import java.util.UUID;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ public class BasketService implements IBasketService {
   private final IBasketRepository basketRepository;
 
   @Override
-  public BasketItem findBasketItemById(UUID id) {
+  public Optional<BasketItem> findBasketItemById(UUID id) {
     return basketRepository.findBasketItemById(id);
   }
 
@@ -28,17 +30,17 @@ public class BasketService implements IBasketService {
   }
 
   @Override
-  public void addItemToBasketWithUser(BasketItem item, UUID userId) {
+  public void addItemToBasket(BasketItem item) {
 
   }
 
   @Override
-  public void updateItemFromBasketWithUser(BasketItem item, UUID userId) {
+  public void updateBasketItem(BasketItem item) {
 
   }
 
   @Override
-  public void deleteItemFromBasketWithUser(UUID itemId, UUID userId) {
+  public void deleteItemFromBasket(UUID itemId) {
 
   }
 }
