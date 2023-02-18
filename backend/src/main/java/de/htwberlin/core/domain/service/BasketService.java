@@ -15,24 +15,30 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class BasketService implements IBasketService {
 
-  private final IBasketRepository productRepository;
+  private final IBasketRepository basketRepository;
 
   @Override
   public BasketItem findBasketItemById(UUID id) {
-    return null;
+    return basketRepository.findBasketItemById(id);
   }
 
   @Override
-  public Basket findBasketByUserId(String userId) {
-    return null;
+  public Basket findBasketByUserId(UUID userId) {
+    return Basket.of(basketRepository.findBasketItemsByUserId(userId));
   }
 
   @Override
-  public void addItemToBasketWithUser(BasketItem item, String userId) {}
+  public void addItemToBasketWithUser(BasketItem item, UUID userId) {
+
+  }
 
   @Override
-  public void updateItemFromBasketWithUser(BasketItem item, String userId) {}
+  public void updateItemFromBasketWithUser(BasketItem item, UUID userId) {
+
+  }
 
   @Override
-  public void deleteItemFromBasketWithUser(UUID itemId, String userId) {}
+  public void deleteItemFromBasketWithUser(UUID itemId, UUID userId) {
+
+  }
 }

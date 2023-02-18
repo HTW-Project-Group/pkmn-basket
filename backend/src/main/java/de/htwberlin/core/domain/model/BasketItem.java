@@ -24,6 +24,9 @@ public class BasketItem implements Serializable {
   @Column(name = "product_id", unique = true, nullable = false, updatable = false)
   String productId;
 
+  @Column(name = "user_id", unique = true, nullable = false, updatable = false)
+  UUID userId;
+
   @Column(name = "name")
   String name;
 
