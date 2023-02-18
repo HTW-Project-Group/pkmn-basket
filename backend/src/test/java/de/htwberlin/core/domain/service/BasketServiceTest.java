@@ -12,7 +12,6 @@ import de.htwberlin.port.exception.BasketWithWrongUserException;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class BasketServiceTest {
@@ -39,18 +38,6 @@ class BasketServiceTest {
     assertThat(resultOptional).isPresent();
     var result = resultOptional.get();
     assertThat(result.getId()).isEqualTo(id);
-  }
-
-  @Disabled("Should be executed in BasketController")
-  @Test
-  void shouldThrowErrorIfBasketItemIdDoesNotExist() {
-    // given
-    basketRepository.save(BasketFactory.simpleBasketItem().build());
-
-    // when + then
-    var id = UUID.randomUUID();
-    assertThatThrownBy(() -> basketService.findBasketItemById(id))
-        .isInstanceOf(BasketUserNotFoundException.class);
   }
 
   @Test
