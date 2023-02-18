@@ -1,10 +1,9 @@
 package de.htwberlin.core.domain.model;
 
+import de.htwberlin.port.exception.BasketUserNotFoundException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
-
-import de.htwberlin.port.exception.BasketUserNotFoundException;
 import lombok.*;
 
 @Getter

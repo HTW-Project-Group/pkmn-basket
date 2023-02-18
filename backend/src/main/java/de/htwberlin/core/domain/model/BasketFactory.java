@@ -1,12 +1,11 @@
 package de.htwberlin.core.domain.model;
 
 import com.github.javafaker.Faker;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.NONE)
 public class BasketFactory {

@@ -9,12 +9,11 @@ import de.htwberlin.core.domain.repository.BasketInMemoryRepository;
 import de.htwberlin.core.domain.repository.IBasketRepository;
 import de.htwberlin.port.exception.BasketUserNotFoundException;
 import de.htwberlin.port.exception.BasketWithWrongUserException;
+import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.UUID;
 
 class BasketServiceTest {
 
@@ -137,7 +136,8 @@ class BasketServiceTest {
     // given
     final UUID userId = UUID.randomUUID();
     final UUID id = UUID.randomUUID();
-    basketRepository.save(BasketFactory.simpleBasketItem().quantity(2).id(id).userId(userId).build());
+    basketRepository.save(
+        BasketFactory.simpleBasketItem().quantity(2).id(id).userId(userId).build());
 
     // when + then
     var basketItemToUpdate = BasketFactory.simpleBasketItem().id(id).build();
