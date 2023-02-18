@@ -1,4 +1,4 @@
-package de.htwberlin.port.basket;
+package de.htwberlin.port.basket.controller;
 
 import de.htwberlin.core.domain.model.Basket;
 import de.htwberlin.core.domain.model.BasketItem;
