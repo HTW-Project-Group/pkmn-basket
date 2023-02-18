@@ -7,6 +7,8 @@ import de.htwberlin.core.domain.repository.IBasketRepository;
 import java.util.Optional;
 import java.util.UUID;
 import javax.transaction.Transactional;
+
+import de.htwberlin.port.exception.BasketWithWrongUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -31,16 +33,22 @@ public class BasketService implements IBasketService {
 
   @Override
   public void addItemToBasket(BasketItem item) {
-
+    basketRepository.save(item);
   }
 
   @Override
   public void updateBasketItem(BasketItem item) {
-
+    findBasketItemById(item.getId()).ifPresentOrElse(basketItem -> {
+      if (basketItem.getUserId().equals(item.getUserId())) {
+        basketRepository.save(item);
+      } else {
+        throw new BasketWithWrongUserException();
+      }
+    }, () -> addItemToBasket(item));
   }
 
   @Override
   public void deleteItemFromBasket(UUID itemId) {
-
+    basketRepository.deleteById(itemId);
   }
 }

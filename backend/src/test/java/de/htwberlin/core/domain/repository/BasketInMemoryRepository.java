@@ -38,4 +38,9 @@ public class BasketInMemoryRepository extends BaseInMemoryRepository<BasketItem,
   public List<BasketItem> findAll() {
     return List.copyOf(entities.values());
   }
+
+  @Override
+  public void deleteById(UUID uuid) {
+    entities.remove(uuid);
+  }
 }

@@ -2,9 +2,7 @@ package de.htwberlin.core.domain.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import de.htwberlin.core.domain.model.Basket;
 import de.htwberlin.core.domain.model.BasketFactory;
 import de.htwberlin.core.domain.model.BasketItem;
 import de.htwberlin.core.domain.repository.BasketInMemoryRepository;
@@ -14,7 +12,6 @@ import de.htwberlin.port.exception.BasketWithWrongUserException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.UUID;
@@ -45,6 +42,7 @@ class BasketServiceTest {
     assertThat(result.getId()).isEqualTo(id);
   }
 
+  @Disabled("Should be executed in BasketController")
   @Test
   void shouldThrowErrorIfBasketItemIdDoesNotExist() {
     // given
@@ -99,7 +97,7 @@ class BasketServiceTest {
   }
 
   @Test
-  void shouldAddItemToBasketWithUser() {
+  void shouldAddItemToBasket() {
     // given
     final UUID userId = UUID.fromString("11111111-0000-0000-0000-000000000000");
     final UUID id = UUID.fromString("10000000-0000-0000-0000-000000000000");
@@ -117,7 +115,7 @@ class BasketServiceTest {
   }
 
   @Test
-  void shouldUpdateItemFromBasketWithUser() {
+  void shouldUpdateItemFromBasket() {
     // given
     final UUID id = UUID.fromString("10000000-0000-0000-0000-000000000000");
     var basketItem = BasketFactory.simpleBasketItem().quantity(2).id(id);
@@ -138,16 +136,17 @@ class BasketServiceTest {
   void shouldThrowErrorWhenUpdateItemFromBasketWithOtherUserThanOwner() {
     // given
     final UUID userId = UUID.randomUUID();
-    basketRepository.save(BasketFactory.simpleBasketItem().quantity(2).userId(userId).build());
+    final UUID id = UUID.randomUUID();
+    basketRepository.save(BasketFactory.simpleBasketItem().quantity(2).id(id).userId(userId).build());
 
     // when + then
-    var basketItemToUpdate = BasketFactory.simpleBasketItem().build();
+    var basketItemToUpdate = BasketFactory.simpleBasketItem().id(id).build();
     assertThatThrownBy(() -> basketService.updateBasketItem(basketItemToUpdate))
         .isInstanceOf(BasketWithWrongUserException.class);
   }
 
   @Test
-  void shouldDeleteItemFromBasketWithUser() {
+  void shouldDeleteItemFromBasket() {
     // given
     final UUID id = UUID.fromString("10000000-0000-0000-0000-000000000000");
     basketRepository.save(BasketFactory.simpleBasketItem().id(id).build());
