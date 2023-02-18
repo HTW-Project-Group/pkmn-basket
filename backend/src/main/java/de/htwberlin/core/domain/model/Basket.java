@@ -1,23 +1,29 @@
 package de.htwberlin.core.domain.model;
 
+import de.htwberlin.port.exception.BasketUserNotFoundException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
-import javax.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "basket")
 public class Basket implements Serializable {
 
-  @Id
-  @GeneratedValue(generator = "UUID")
-  @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-  @Column(name = "id", nullable = false, updatable = false)
-  UUID id;
+  private UUID userId;
+
+  private List<BasketItem> items;
+
+  public static Basket of(List<BasketItem> items) {
+    var userId =
+        items.stream()
+            .map(BasketItem::getUserId)
+            .distinct()
+            .findFirst()
+            .orElseThrow(BasketUserNotFoundException::new);
+    return Basket.builder().items(items).userId(userId).build();
+  }
 }
