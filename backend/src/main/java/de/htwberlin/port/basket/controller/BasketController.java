@@ -1,4 +1,4 @@
-package de.htwberlin.port.basket;
+package de.htwberlin.port.basket.controller;
 
 import de.htwberlin.core.domain.model.Basket;
 import de.htwberlin.core.domain.model.BasketItem;
@@ -28,5 +28,21 @@ public class BasketController {
   @GetMapping("/user/{userId}")
   public ResponseEntity<Basket> getBasketForUser(@PathVariable("userId") UUID userId) {
     return new ResponseEntity<>(basketService.findBasketByUserId(userId), HttpStatus.OK);
+  }
+
+  @PostMapping("/update")
+  public ResponseEntity<Basket> updateBasketItemOfBasket(@RequestBody BasketItem basketItem) {
+    basketService.updateBasketItem(basketItem);
+    return new ResponseEntity<>(
+        basketService.findBasketByUserId(basketItem.getUserId()), HttpStatus.ACCEPTED);
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<Basket> deleteBasketItem(@PathVariable("id") UUID id) {
+    final BasketItem basketItem =
+        basketService.findBasketItemById(id).orElseThrow(BasketItemNotFoundException::new);
+    basketService.deleteItemFromBasket(id);
+    return new ResponseEntity<>(
+        basketService.findBasketByUserId(basketItem.getUserId()), HttpStatus.OK);
   }
 }
