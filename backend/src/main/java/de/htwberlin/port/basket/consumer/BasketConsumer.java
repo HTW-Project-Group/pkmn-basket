@@ -21,6 +21,10 @@ public class BasketConsumer {
     log.info(
         String.format("Received a BasketItem from Product Queue <- %s", product.getPokemonId()));
 
-    basketService.addItemToBasket(basketItemMapper.toBasketItem(product));
+    try {
+      basketService.addItemToBasket(basketItemMapper.toBasketItem(product));
+    } catch (Exception e) {
+      log.error(e.getMessage());
+    }
   }
 }
