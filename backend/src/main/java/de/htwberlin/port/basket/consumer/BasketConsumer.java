@@ -2,7 +2,7 @@ package de.htwberlin.port.basket.consumer;
 
 import de.htwberlin.core.appservice.mapper.IBasketItemMapper;
 import de.htwberlin.core.domain.service.IBasketService;
-import de.htwberlin.port.dto.ProductExportDto;
+import de.htwberlin.port.dto.BasketItemDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -17,7 +17,7 @@ public class BasketConsumer {
   private final IBasketItemMapper basketItemMapper;
 
   @RabbitListener(queues = {"product"})
-  public void consume(ProductExportDto product) {
+  public void consume(BasketItemDto product) {
     log.info(
         String.format("Received a BasketItem from Product Queue <- %s", product.getPokemonId()));
 
