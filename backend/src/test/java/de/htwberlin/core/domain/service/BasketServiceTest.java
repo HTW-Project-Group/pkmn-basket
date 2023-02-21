@@ -7,7 +7,6 @@ import de.htwberlin.core.domain.model.BasketFactory;
 import de.htwberlin.core.domain.model.BasketItem;
 import de.htwberlin.core.domain.repository.BasketInMemoryRepository;
 import de.htwberlin.core.domain.repository.IBasketRepository;
-import de.htwberlin.port.exception.BasketUserNotFoundException;
 import de.htwberlin.port.exception.BasketWithWrongUserException;
 import java.util.List;
 import java.util.UUID;
@@ -71,15 +70,18 @@ class BasketServiceTest {
   }
 
   @Test
-  void shouldThrowErrorWhenFindBasketAndUserIdDoesNotExist() {
+  void shouldEmptyBasketIfUserIdDoesNotExist() {
     // given
     final UUID otherUserId = UUID.randomUUID();
     basketRepository.save(BasketFactory.simpleBasket(otherUserId).build());
 
-    // when + then
+    // when
     var id = UUID.randomUUID();
-    assertThatThrownBy(() -> basketService.findBasketByUserId(id))
-        .isInstanceOf(BasketUserNotFoundException.class);
+    var result = basketService.findBasketByUserId(id);
+
+    // then
+    assertThat(result).isNotNull();
+    assertThat(result.getItems()).isEmpty();
   }
 
   @Test

@@ -1,6 +1,5 @@
 package de.htwberlin.core.domain.model;
 
-import de.htwberlin.port.exception.BasketUserNotFoundException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -18,12 +17,12 @@ public class Basket implements Serializable {
   private List<BasketItem> items;
 
   public static Basket of(List<BasketItem> items) {
-    var userId =
-        items.stream()
-            .map(BasketItem::getUserId)
-            .distinct()
-            .findFirst()
-            .orElseThrow(BasketUserNotFoundException::new);
-    return Basket.builder().items(items).userId(userId).build();
+    var basket = Basket.builder().items(List.of());
+    items.stream()
+        .map(BasketItem::getUserId)
+        .distinct()
+        .findFirst()
+        .ifPresent(userId -> basket.items(items).userId(userId));
+    return basket.build();
   }
 }
