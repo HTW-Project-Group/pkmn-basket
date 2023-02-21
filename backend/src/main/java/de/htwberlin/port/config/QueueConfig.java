@@ -26,6 +26,11 @@ public class QueueConfig {
   }
 
   @Bean
+  public Queue backupProductQueue() {
+    return new Queue("product");
+  }
+
+  @Bean
   public TopicExchange exchange() {
     return new TopicExchange(queueExchange);
   }
